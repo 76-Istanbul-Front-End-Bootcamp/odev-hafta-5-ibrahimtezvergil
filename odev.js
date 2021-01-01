@@ -28,9 +28,44 @@ import {createTableElements} from "./main.js";
 /* RESET ACTION */
 document.querySelector("#reset").addEventListener("click", () => {
     createTableElements(data, "allcities");
-    createTableElements([], "singlecity")
+    createTableElements([], "singlecity");
+  
 });
 
 /* START CODING HERE */
 
+var selectBox = document.querySelector(".custom-select")
+data.forEach(element => {
+  var option = document.createElement("option");
+  option.text=element.name;
+  option.value=element.name;
+  selectBox.add(option);
+  selectBox.appendChild(option);
+});
+
+selectBox.addEventListener("change", (element) => {
+  const printCities = data.filter(cities => element.target.value === cities.name);
+  createTableElements(printCities, "singlecity");
+});
+
+document.querySelector("#isLandBigger").addEventListener("click", () => {
+  const areaBiggerControl = data.every(city => city.landArea > 100);
+  areaBiggerControl ? alert('YES') : alert('NO');
+});
+
+document.querySelector("#isPopulationLess").addEventListener("click", () => {
+  const populationLessControl = data.some(city => city.population < 100000);
+  populationLessControl ? alert('YES') : alert('NO');
+});
+//Population bigger than 500.000 button
+document.querySelector("#populationBigger").addEventListener("click", () => {
+    let populationBigger = data.filter(city => city.population > 500000);
+    createTableElements(populationBigger, "allcities");
+});
+
+//Land area less than 1.000 button
+document.querySelector("#landAreaLess").addEventListener("click", () => {
+    let landAreaLess = data.filter(city => city.landArea < 1000);
+    createTableElements(landAreaLess, "allcities");
+});
 
